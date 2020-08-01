@@ -1,15 +1,30 @@
+
+import HTMLWebpackPlugin from 'html-webpack-plugin';
+import {Routing} from './routing';
+
 const path = require('path');
 const webpack = require('webpack');
 
 const ROOT = path.resolve( __dirname, 'src' );
 const DESTINATION = path.resolve( __dirname, 'dist' );
 
+const htmlEntries:{[key: string]: string} = {};
+const htmlPlugins:HTMLWebpackPlugin[] = [];
+Routing.pages.forEach((page) => {
+    htmlPlugins.push(new HTMLWebpackPlugin({
+        title: page.title,
+        filename: `pages/${page.name}/${page.name}.html`,
+        template: path.resolve(__dirname, `src/pages/${page.name}/${page.name}.html`),
+        /*favicon: 'src/favicon.ico',*/
+        hash: true,
+        chunks: [page.name, 'commons']
+    }));
+    htmlEntries[page.name] = path.resolve(__dirname, `src/pages/${page.name}/${page.name}.ts`);
+});
+
 module.exports = {
     context: ROOT,
-    entry: {
-    index: './src/pages/graph-view-page/index.js',
-    graph_view: './src/pages/graph-view-page/index.js'
-  },
+    entry: htmlEntries,
     output: {
         filename: '[name].js',
         path: DESTINATION
@@ -22,7 +37,7 @@ module.exports = {
             'node_modules'
         ]
     },
-
+    plugins: [...htmlPlugins],
     module: {
         rules: [
             /****************
