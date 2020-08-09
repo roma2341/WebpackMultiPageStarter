@@ -8,8 +8,17 @@ const webpack = require('webpack');
 const ROOT = path.resolve( __dirname, 'src' );
 const DESTINATION = path.resolve( __dirname, 'dist' );
 
-const htmlEntries:{[key: string]: string} = {};
-const htmlPlugins:HTMLWebpackPlugin[] = [];
+const htmlEntries: {[key: string]: string} = {
+  index: path.resolve(__dirname, `src/index.ts`)
+};
+const htmlPlugins: HTMLWebpackPlugin[] = [
+    new HTMLWebpackPlugin({
+        title: 'Index',
+        filename: 'index.html',
+        template: path.resolve(__dirname, `src/index.html`),
+        chunks: ['index', 'common']
+    })
+    ];
 Routing.pages.forEach((page) => {
     htmlPlugins.push(new HTMLWebpackPlugin({
         title: page.title,
