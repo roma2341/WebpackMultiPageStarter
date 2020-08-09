@@ -1,5 +1,6 @@
 
 import HTMLWebpackPlugin from 'html-webpack-plugin';
+import CopyPlugin from 'copy-webpack-plugin';
 import {Routing} from './routing';
 
 const path = require('path');
@@ -47,7 +48,12 @@ module.exports = {
         ]
     },
     watch: true,
-    plugins: [...htmlPlugins],
+    plugins: [...htmlPlugins,
+        new CopyPlugin({
+        patterns: [
+          { from: path.resolve(__dirname, `src/assets/`), to: path.resolve(__dirname, `dist/assets/`) },
+        ],
+      }),],
     module: {
         rules: [
             /****************
@@ -79,7 +85,7 @@ module.exports = {
                   // Creates `style` nodes from JS strings
                   'style-loader',
                   // Translates CSS into CommonJS
-                  'css-loader',
+                  'css-loader?url=false',
                   // Compiles Sass to CSS
                   'sass-loader',
                 ],
