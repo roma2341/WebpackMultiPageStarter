@@ -14,6 +14,10 @@ export let Routing: {
         {
             name: 'graph-view-page',
             title: 'Welcome to About Page'
+        },
+        {
+            name: 'swatch-book-page',
+            title: 'Swatch book'
         }
     ]
 }

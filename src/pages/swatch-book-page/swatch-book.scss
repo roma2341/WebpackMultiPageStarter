@@ -1,0 +1,15 @@
+.cards-wrapper{
+    width: 400px;
+    height:150px;
+    margin: 0 auto 0 auto;
+}
+.card {
+    width: 400px;
+    height: 150px;
+    background-color: #003c80;
+    color: white;
+    margin-top: 1px;
+    /* transform: rotate(-45deg); */
+    transform-origin: 25% 90%;
+    display: block;
+}
